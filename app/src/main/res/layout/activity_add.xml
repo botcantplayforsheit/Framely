@@ -65,39 +65,64 @@
         android:layout_height="wrap_content">
 
 
-        <com.rengwuxian.materialedittext.MaterialEditText
+        <EditText
             android:id="@+id/nameProduct"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="55dp"
             android:hint="Nama Produk"
             app:met_floatingLabel="highlight"
             android:inputType="text"
-            android:textColorHint="@android:color/white"
+            android:paddingHorizontal="10dp"
+            android:background="@drawable/border_black"
+            android:textColorHint="@android:color/darker_gray"
             android:textSize="18sp"
             app:met_floatingLabelTextSize="22sp"
             android:layout_marginBottom="10dp"
             />
 
-        <com.rengwuxian.materialedittext.MaterialEditText
+        <EditText
             android:id="@+id/Price"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="55dp"
             android:hint="Harga"
             app:met_floatingLabel="highlight"
             android:inputType="number"
-            android:textColorHint="@android:color/white"
             android:textSize="18sp"
+            android:layout_marginTop="8dp"
+            android:paddingHorizontal="10dp"
+            android:background="@drawable/border_black"
+            android:textColorHint="@android:color/darker_gray"
             app:met_floatingLabelTextSize="22sp"
             android:layout_marginBottom="10dp"
             />
+
+        <EditText
+            android:id="@+id/desc"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:hint="Deskripsi"
+            app:met_floatingLabel="highlight"
+            android:textSize="18sp"
+            android:layout_marginTop="8dp"
+            android:paddingVertical="10dp"
+            android:paddingHorizontal="10dp"
+            android:inputType="text|textMultiLine"
+            android:gravity="top"
+            android:background="@drawable/border_black"
+            android:textColorHint="@android:color/darker_gray"
+            app:met_floatingLabelTextSize="22sp"
+            android:layout_marginBottom="10dp"/>
         <TextView
+            android:layout_marginTop="8dp"
+            android:visibility="visible"
             android:layout_marginBottom="15dp"
             android:textColor="@color/colorBlack"
-            android:text="Stok Produk"
-            android:textSize="22sp"
+            android:text="Waktu PO Dalam Hari"
+            android:textSize="18sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"></TextView>
         <RelativeLayout
+            android:visibility="visible"
             android:orientation="horizontal"
             android:layout_width="240dp"
             android:layout_height="wrap_content">
@@ -116,28 +141,30 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
             </RelativeLayout>
+
             <EditText
-                android:id="@+id/product_stock_edt"
-                android:textSize="22sp"
-                android:textAlignment="center"
+                android:id="@+id/poTime"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
                 android:layout_centerInParent="true"
                 android:background="@drawable/border_black"
                 android:inputType="number"
                 android:text="0"
-                android:layout_width="100dp"
-                android:layout_height="50dp"/>
+                android:textAlignment="center"
+                android:textSize="22sp" />
             <RelativeLayout
                 android:id="@+id/minus_stock"
                 android:background="@drawable/fullblack"
                 android:layout_width="50dp"
                 android:layout_alignParentLeft="true"
                 android:layout_height="50dp">
+
                 <ImageView
-                    android:background="@drawable/minus_icon"
-                    android:layout_centerInParent="true"
-                    android:textAlignment="center"
                     android:layout_width="20dp"
-                    android:layout_height="20dp"/>
+                    android:layout_height="20dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/minus_icon"
+                    android:textAlignment="center" />
             </RelativeLayout>
         </RelativeLayout>
 

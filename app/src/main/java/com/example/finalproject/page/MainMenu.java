@@ -35,6 +35,7 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
     Toolbar toolbar;
     TextView txtFullName, editProfile;
     ImageView myImage;
+    CardView transactionHistory;
 
     DatabaseReference table_stock;
 
@@ -47,12 +48,6 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
         initView();
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.main, menu);
-//        return true;
-//    }
-
     private void initView(){
         toolbar = findViewById(R.id.toolbar);
         addProduct = findViewById(R.id.add_product);
@@ -60,7 +55,7 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
         shop = findViewById(R.id.shop);
         updateProduct = findViewById(R.id.update_product);
         recap = findViewById(R.id.recap);
-
+        transactionHistory = findViewById(R.id.transactionHistory);
         toolbar.setTitle("Main Menu");
         setSupportActionBar(toolbar);
 
@@ -85,71 +80,46 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
                 startActivity(intent);
             }
         });
+        transactionHistory.setOnClickListener(view -> {
+            Intent intent = new Intent(MainMenu.this, TransactionHistory.class);
+            startActivity(intent);
+        });
         myImage = headerView.findViewById(R.id.my_image);
         if(!PreferenceUtil.getUser().getImage().isEmpty() && !PreferenceUtil.getUser().getImage().equals(" ")){
             Picasso.with(this).load(PreferenceUtil.getUser().getImage()).into(myImage);
         }
 
-        addProduct.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainMenu.this, AddProduct.class);
-                startActivity(intent);
-            }
+        addProduct.setOnClickListener(view -> {
+            Intent intent = new Intent(MainMenu.this, AddProduct.class);
+            startActivity(intent);
         });
 
-        recap.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainMenu.this, RekapOption.class);
-                startActivity(intent);
-            }
+        recap.setOnClickListener(view -> {
+            Intent intent = new Intent(MainMenu.this, RekapOption.class);
+            startActivity(intent);
         });
 
-        createQR.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainMenu.this, ProductList.class);
-                intent.putExtra("page",Common.PAGE_CREATE_QR);
-                startActivity(intent);
-            }
+        createQR.setOnClickListener(view -> {
+            Intent intent = new Intent(MainMenu.this, ProductList.class);
+            intent.putExtra("page",Common.PAGE_CREATE_QR);
+            startActivity(intent);
         });
 
 
-        shop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainMenu.this, Cart.class);
-                intent.putExtra("page",Common.PAGE_SHOP);
-                startActivity(intent);
-            }
+        shop.setOnClickListener(view -> {
+            Intent intent = new Intent(MainMenu.this, Cart.class);
+            intent.putExtra("page",Common.PAGE_SHOP);
+            startActivity(intent);
         });
 
 
-        updateProduct.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainMenu.this, ProductList.class);
-                intent.putExtra("page",Common.PAGE_UPDATE_PRODUCT);
-                startActivity(intent);
-            }
+        updateProduct.setOnClickListener(view -> {
+            Intent intent = new Intent(MainMenu.this, ProductList.class);
+            intent.putExtra("page",Common.PAGE_UPDATE_PRODUCT);
+            startActivity(intent);
         });
 
     }
-
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()) {
-//            case R.id.logout:
-//                Intent intent = new Intent(this, MainActivity.class);
-//                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-//                PreferenceUtil.clearAll();
-//                startActivity(intent);
-//                finish();
-//            default:
-//                return super.onOptionsItemSelected(item);
-//        }
-//    }
 
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -157,10 +127,6 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
-//        if (id == R.id.nav_edit_profile) {
-//
-//        } else
         if (id == R.id.nav_log_out) {
             Intent intent = new Intent(this, MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);

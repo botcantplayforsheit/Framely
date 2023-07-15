@@ -64,6 +64,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
+            android:visibility="gone"
             android:id="@+id/shop"
             android:layout_margin="20dp"
             android:elevation="2dp"
@@ -104,6 +105,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
+            android:visibility="gone"
             android:id="@+id/create_qr"
             android:layout_margin="20dp"
             android:elevation="2dp"
@@ -117,6 +119,26 @@
                     android:textSize="20sp"
                     android:textColor="@color/colorBlack"
                     android:text="Cetak QR"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/transactionHistory"
+            android:layout_margin="20dp"
+            android:elevation="2dp"
+            android:layout_width="match_parent"
+            android:layout_height="60dp">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:layout_centerInParent="true"
+                    android:textSize="20sp"
+                    android:textColor="@color/colorBlack"
+                    android:text="Histori Transaksi"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
             </RelativeLayout>

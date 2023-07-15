@@ -1,6 +1,7 @@
 package com.example.finalproject.page.scanner;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -15,7 +16,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 
@@ -26,9 +29,11 @@ import com.example.finalproject.Model.Product;
 import com.example.finalproject.Model.Varian;
 import com.example.finalproject.R;
 import com.example.finalproject.base.BaseActivity;
+import com.example.finalproject.page.Cart;
 import com.example.finalproject.page.OrderDetail;
 import com.example.finalproject.page.ProductDetail;
 import com.example.finalproject.page.ProductList;
+import com.example.finalproject.page.SignUp;
 import com.example.finalproject.util.PreferenceUtil;
 import com.example.finalproject.util.StringUtil;
 import com.google.firebase.database.DataSnapshot;
@@ -133,6 +138,8 @@ public class OrderItem extends BaseActivity {
         Button addBtn = findViewById(R.id.add_btn);
 
         TextView name = findViewById(R.id.product_name);
+        TextView desc = findViewById(R.id.desc);
+
         final EditText stockEdt = findViewById(R.id.product_stock_edt);
         RelativeLayout minusStock = findViewById(R.id.minus_stock);
         RelativeLayout plusStock = findViewById(R.id.plus_stock);
@@ -153,9 +160,13 @@ public class OrderItem extends BaseActivity {
 
 
         name.setText(result.getName());
+        desc.setText(result.getDesc());
 
         addBtn.setOnClickListener(view -> {
-
+            if(width.getText().toString().isEmpty() || height.getText().toString().isEmpty() && stockEdt.getText().toString().isEmpty()){
+                Toast.makeText(OrderItem.this, "Mohon mengisi data yang diperlukan.", Toast.LENGTH_SHORT).show();
+                return;
+            }
             List<Order> orders1 = PreferenceUtil.getOrders();
             boolean found = false;
             for(int i = 0; i< orders1.size(); i++){
@@ -190,7 +201,8 @@ public class OrderItem extends BaseActivity {
                         linen,glass,
                         weight,
                         Integer.parseInt(width.getText().toString()),
-                        Integer.parseInt(height.getText().toString())
+                        Integer.parseInt(height.getText().toString()),
+                        result.getPoTime()
                 ));
             }
             PreferenceUtil.setOrders(orders1);
@@ -198,42 +210,65 @@ public class OrderItem extends BaseActivity {
         });
 
         cancelBtn.setOnClickListener(view -> {
-            Date date = new Date();
-            Order order = new Order(
-                    "ORD-"+System.currentTimeMillis(),
-                    result,
-                    stockEdt.getText().toString(),
-                    String.valueOf(total),
-                    date.getTime(),
-                    size,
-                    mattboard,
-                    linen,glass,
-                    weight,
-                    Integer.parseInt(width.getText().toString()),
-                    Integer.parseInt(height.getText().toString())
-            );
-            List<Order> orders12 = new ArrayList<>();
-            orders12.add(order);
-            Invoice invoice = new Invoice(
-                    "INV-"+System.currentTimeMillis(),
-                    PreferenceUtil.getUser(),
-                    orders12,
-                    "",
-                    String.valueOf(total),
-                    date.getTime(),
-                    Common.ORDER_WAITING_PAYMENT,
-                    PreferenceUtil.getUser().getAddress()
-            );
+            AlertDialog.Builder alertDialog2 = new AlertDialog.Builder(
+                    OrderItem.this);
 
-            DatabaseReference invoiceRef = database.getReference("Invoice");
-            DatabaseReference orderRef = database.getReference("Order");
+            alertDialog2.setTitle("Konfirmasi");
 
-            invoiceRef.child(invoice.getId()).setValue(invoice);
-            orderRef.child(order.getId()).setValue(order);
+            alertDialog2.setMessage("Apakah pesanan sudah sesuai?");
 
-            Intent intent = new Intent(OrderItem.this, OrderDetail.class);
-            intent.putExtra("invoice", invoice);
-            startActivity(intent);
+
+            alertDialog2.setPositiveButton("Sesuai",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            Date date = new Date();
+                            Order order = new Order(
+                                    "ORD-"+System.currentTimeMillis(),
+                                    result,
+                                    stockEdt.getText().toString(),
+                                    String.valueOf(total),
+                                    date.getTime(),
+                                    size,
+                                    mattboard,
+                                    linen,glass,
+                                    weight,
+                                    Integer.parseInt(width.getText().toString()),
+                                    Integer.parseInt(height.getText().toString()),
+                                    result.getPoTime()
+                            );
+                            List<Order> orders12 = new ArrayList<>();
+                            orders12.add(order);
+                            Invoice invoice = new Invoice(
+                                    "INV-"+System.currentTimeMillis(),
+                                    PreferenceUtil.getUser(),
+                                    orders12,
+                                    "",
+                                    String.valueOf(total),
+                                    date.getTime(),
+                                    Common.ORDER_WAITING_PAYMENT,
+                                    PreferenceUtil.getUser().getAddress()
+                            );
+
+                            DatabaseReference invoiceRef = database.getReference("Invoice");
+                            DatabaseReference orderRef = database.getReference("Order");
+
+                            invoiceRef.child(invoice.getId()).setValue(invoice);
+                            orderRef.child(order.getId()).setValue(order);
+
+                            Intent intent = new Intent(OrderItem.this, OrderDetail.class);
+                            intent.putExtra("invoice", invoice);
+                            startActivity(intent);
+                        }
+                    });
+
+            alertDialog2.setNegativeButton("Tidak",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+
+            alertDialog2.show();
         });
         database = FirebaseDatabase.getInstance();
 

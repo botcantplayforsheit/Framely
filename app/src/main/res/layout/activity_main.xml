@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black"
 
     tools:context="com.example.finalproject.MainActivity">
 
@@ -14,9 +15,15 @@
         android:layout_centerInParent="true">
 
         <ImageView
-            android:src="@drawable/logo"
             android:layout_width="200dp"
-            android:layout_height="200dp" />
+            android:layout_height="200dp"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:scaleType="fitXY"
+            android:layout_marginBottom="20dp"
+            android:src="@drawable/image" />
 
 
     </LinearLayout>

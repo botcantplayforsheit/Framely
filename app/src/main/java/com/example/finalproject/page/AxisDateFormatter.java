@@ -10,7 +10,7 @@ public class AxisDateFormatter extends ValueFormatter{
     private final List<String> mValues;
 
     public String getFormattedValue(float value) {
-        if(value>0){
+        if(value>0 && mValues.size()>0){
             SimpleDateFormat sdf = new SimpleDateFormat("dd MMM");
             return sdf.format(new Date(Long.parseLong(mValues.get((int)value))));
         }else{

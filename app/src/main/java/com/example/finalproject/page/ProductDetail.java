@@ -19,8 +19,10 @@ import androidx.cardview.widget.CardView;
 import com.example.finalproject.Model.Product;
 import com.example.finalproject.R;
 import com.example.finalproject.base.BaseActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -38,13 +40,13 @@ import com.squareup.picasso.Picasso;
 public class ProductDetail extends BaseActivity {
     CardView imageCard;
     ImageView imageProduct;
-    MaterialEditText productPrice;
-    MaterialEditText productName;
+    EditText productPrice;
+    EditText productName, desc;
     Button submitBtn;
     RelativeLayout mButtonChooseImage;
     RelativeLayout minusStock;
     RelativeLayout plusStock;
-    EditText stockEdt;
+    EditText poTime;
     Toolbar toolbar;
 
     FirebaseDatabase database;
@@ -83,7 +85,7 @@ public class ProductDetail extends BaseActivity {
 
     public void initView(){
         toolbar =  findViewById(R.id.toolbar);
-        stockEdt =  findViewById(R.id.product_stock_edt);
+        poTime =  findViewById(R.id.poTime);
         plusStock =  findViewById(R.id.plus_stock);
         minusStock =  findViewById(R.id.minus_stock);
         mButtonChooseImage =  findViewById(R.id.button_choose_image);
@@ -92,23 +94,24 @@ public class ProductDetail extends BaseActivity {
         productPrice =  findViewById(R.id.productPrice);
         imageProduct =  findViewById(R.id.image_product);
         imageCard =  findViewById(R.id.image_card);
+        desc =  findViewById(R.id.desc);
 
         setTitle(toolbar, "Ubah Produk");
 
         plusStock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int stockValue = Integer.parseInt(stockEdt.getText().toString())+1;
-                stockEdt.setText(String.valueOf(stockValue));
+                int stockValue = Integer.parseInt(poTime.getText().toString())+1;
+                poTime.setText(String.valueOf(stockValue));
             }
         });
 
         minusStock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(Integer.parseInt(stockEdt.getText().toString())>0){
-                    int stockValue = Integer.parseInt(stockEdt.getText().toString())-1;
-                    stockEdt.setText(String.valueOf(stockValue));
+                if(Integer.parseInt(poTime.getText().toString())>0){
+                    int stockValue = Integer.parseInt(poTime.getText().toString())-1;
+                    poTime.setText(String.valueOf(stockValue));
                 }
             }
         });
@@ -116,17 +119,19 @@ public class ProductDetail extends BaseActivity {
             imageCard.setVisibility(View.VISIBLE);
             Picasso.with(getBaseContext()).load(product.getImage()).into(imageProduct);
         }
-        stockEdt.setText(product.getStock());
+        poTime.setText(String.valueOf(product.getPoTime()));
         productName.setText(product.getName());
         productPrice.setText(product.getPrice());
-
+        desc.setText(product.getDesc());
 
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                productTable.child(productId).child("Stock").setValue(stockEdt.getText().toString());
-                productTable.child(productId).child("Name").setValue(productName.getText().toString());
-                productTable.child(productId).child("Price").setValue(productPrice.getText().toString());
+                showProgress();
+                productTable.child(productId).child("poTime").setValue(Integer.parseInt(poTime.getText().toString()));
+                productTable.child(productId).child("name").setValue(productName.getText().toString());
+                productTable.child(productId).child("price").setValue(productPrice.getText().toString());
+                productTable.child(productId).child("desc").setValue(desc.getText().toString());
 
                 if (mImageUri != null) {
                     StorageReference fileReference = mStorageRef.child(System.currentTimeMillis()
@@ -136,8 +141,16 @@ public class ProductDetail extends BaseActivity {
                             .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                 @Override
                                 public void onSuccess(final UploadTask.TaskSnapshot taskSnapshot) {
-//
-                                    productTable.child(productId).child("Image").setValue(taskSnapshot.getMetadata().getReference().getDownloadUrl().toString());
+                                    taskSnapshot.getMetadata().getReference().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                                        @Override
+                                        public void onComplete( Task<Uri> task) {
+                                            String url = task.getResult().toString();
+                                            productTable.child(productId).child("image").setValue(url);
+                                            disProgress();
+                                            Toast.makeText(ProductDetail.this, "Berhasil Merubah Produk", Toast.LENGTH_SHORT).show();
+                                            finish();
+                                        }
+                                    });
 
                                 }
                             })
@@ -155,11 +168,11 @@ public class ProductDetail extends BaseActivity {
 
                                 }
                             });
+                }else{
+                    disProgress();
+                    Toast.makeText(ProductDetail.this, "Berhasil Merubah Produk", Toast.LENGTH_SHORT).show();
+                    finish();
                 }
-                disProgress();
-                Toast.makeText(ProductDetail.this, "Berhasil Merubah Produk", Toast.LENGTH_SHORT).show();
-                finish();
-
             }
         });
 

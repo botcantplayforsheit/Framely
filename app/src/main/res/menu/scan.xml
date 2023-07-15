@@ -8,10 +8,10 @@
         app:actionViewClass="android.widget.SearchView"
         app:showAsAction="always">
     </item>
-    <item
-        android:id="@+id/scanBtn"
-        android:icon="@drawable/ic_baseline_add_24"
-        android:orderInCategory="100"
-        android:title="Scan"
-        app:showAsAction="always" />
+<!--    <item-->
+<!--        android:id="@+id/scanBtn"-->
+<!--        android:icon="@drawable/ic_baseline_add_24"-->
+<!--        android:orderInCategory="100"-->
+<!--        android:title="Scan"-->
+<!--        app:showAsAction="always" />-->
 </menu>

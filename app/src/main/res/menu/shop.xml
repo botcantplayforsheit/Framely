@@ -8,10 +8,10 @@
         android:orderInCategory="100"
         app:showAsAction="always">
     </item>
-    <item
-        android:id="@+id/scanBtn"
-        android:icon="@drawable/qr_scanner"
-        android:orderInCategory="100"
-        android:title="Search"
-        app:showAsAction="always" />
+<!--    <item-->
+<!--        android:id="@+id/scanBtn"-->
+<!--        android:icon="@drawable/qr_scanner"-->
+<!--        android:orderInCategory="100"-->
+<!--        android:title="Search"-->
+<!--        app:showAsAction="always" />-->
 </menu>

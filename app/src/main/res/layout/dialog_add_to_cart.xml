@@ -64,6 +64,7 @@
                 </androidx.cardview.widget.CardView>
 
             </RelativeLayout>
+
             <TextView
                 android:id="@+id/product_name"
                 android:layout_width="match_parent"
@@ -72,9 +73,19 @@
                 android:fontFamily="sans-serif"
                 android:maxLines="5"
                 android:textColor="@color/colorBlack"
-                android:textSize="22sp"
+                android:textSize="20sp"
                 tools:text="Sawi"/>
 
+            <TextView
+                android:layout_marginTop="8dp"
+                android:id="@+id/desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:fontFamily="sans-serif"
+                android:textColor="@color/colorBlack"
+                android:textSize="14sp"
+                tools:text="Sawi"/>
 
             <TextView
                 android:layout_marginTop="20dp"

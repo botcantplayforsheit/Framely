@@ -27,21 +27,17 @@ public class Splash extends BaseActivity {
         setContentView(R.layout.activity_splash);
 
         final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if(PreferenceUtil.isUserExist()){
-                    if(PreferenceUtil.getUser().getRole().equals(Common.ROLE_USER)){
-                        startActivity(new Intent(getApplicationContext(), MainMenuUser.class));
-                    }else{
-                        startActivity(new Intent(getApplicationContext(), MainMenu.class));
-                    }
-                    finish();
+        handler.postDelayed(() -> {
+            if(PreferenceUtil.isUserExist()){
+                if(PreferenceUtil.getUser().getRole().equalsIgnoreCase(Common.ROLE_USER)){
+                    startActivity(new Intent(getApplicationContext(), MainMenuUser.class));
                 }else{
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                    finish();
+                    startActivity(new Intent(getApplicationContext(), MainMenu.class));
                 }
+            }else{
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
             }
+            finish();
         }, 1000L);
 
     }

@@ -24,35 +24,36 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.rengwuxian.materialedittext.MaterialEditText
+        <EditText
             android:id="@+id/etPhone"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="55dp"
             android:hint="Nomor Telepon"
             android:inputType="phone"
-            android:textColorHint="@android:color/white"
-            android:textSize="30sp"
-            app:met_textColorHint="@color/colorBlack"
-            app:met_floatingLabel="highlight"
-            app:met_maxCharacters="15"
-            app:met_singleLineEllipsis="true"/>
+            android:textSize="20sp"
+            android:paddingHorizontal="10dp"
+            android:background="@drawable/border_black"
+            android:textColorHint="@android:color/darker_gray"
+            android:maxLength="13"/>
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/inputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Password"
-            android:textColorHint="@color/colorBlack"
+            app:hintEnabled="false"
+            android:layout_marginTop="12dp"
             app:passwordToggleEnabled="true">
-            <com.rengwuxian.materialedittext.MaterialEditText
+
+            <EditText
                 android:id="@+id/etPassword"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="55dp"
                 android:inputType="textPassword"
-                android:textColorHint="@android:color/white"
-                android:textSize="30sp"
-                app:met_floatingLabel="highlight"
-                app:met_maxCharacters="10"
-                app:met_singleLineEllipsis="true" />
+                android:textSize="20sp"
+                android:hint="Password"
+                android:paddingHorizontal="10dp"
+                android:background="@drawable/border_black"
+                android:textColorHint="@android:color/darker_gray"
+                android:maxLength="10"/>
         </com.google.android.material.textfield.TextInputLayout>
         <LinearLayout
             android:layout_marginTop="10dp"

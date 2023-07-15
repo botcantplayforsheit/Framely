@@ -83,7 +83,7 @@ public class ProductList extends BaseActivity {
             @Override
             protected void populateViewHolder(ShoeViewHolder viewHolder, final Product model, int position) {
                 viewHolder.shoe_name.setText(model.getName());
-                if(!model.getImage().equals("") && !model.getImage().equals(" ")){
+                if(model.getImage()!=null&&!model.getImage().equals("") && !model.getImage().equals(" ")){
                     Picasso.with(getBaseContext()).load(model.getImage()).into(viewHolder.shoe_image);
                 }
 
@@ -166,13 +166,13 @@ public class ProductList extends BaseActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                loadListProduct(productList.orderByChild("Name").startAt(query).endAt(query+"\uf8ff"));
+                loadListProduct(productList.orderByChild("name").startAt(query).endAt(query+"\uf8ff"));
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                loadListProduct(productList.orderByChild("Name").startAt(newText).endAt(newText+"\uf8ff"));
+                loadListProduct(productList.orderByChild("name").startAt(newText).endAt(newText+"\uf8ff"));
                 return false;
             }
         });

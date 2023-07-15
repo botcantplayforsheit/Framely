@@ -17,13 +17,14 @@ public class Order implements Parcelable {
     private double weight;
     private int width;
     private int height;
+    private int poTime;
 
     private Product product;
 
     public Order() {
     }
 
-    public Order(String id,Product product, String quantity, String price, Long date, Varian size, Varian mattboard, Varian linen, Varian glass, double weight, int width, int height) {
+    public Order(String id,Product product, String quantity, String price, Long date, Varian size, Varian mattboard, Varian linen, Varian glass, double weight, int width, int height,int poTime) {
         this.product = product;
         this.quantity = quantity;
         this.price = price;
@@ -36,6 +37,7 @@ public class Order implements Parcelable {
         this.weight = weight;
         this.height = height;
         this.width = width;
+        this.poTime = poTime;
 
     }
 
@@ -55,6 +57,7 @@ public class Order implements Parcelable {
         weight = in.readDouble();
         width = in.readInt();
         height = in.readInt();
+        poTime = in.readInt();
         product = in.readParcelable(Product.class.getClassLoader());
     }
 
@@ -76,6 +79,7 @@ public class Order implements Parcelable {
         dest.writeDouble(weight);
         dest.writeInt(width);
         dest.writeInt(height);
+        dest.writeInt(poTime);
         dest.writeParcelable(product, flags);
     }
 

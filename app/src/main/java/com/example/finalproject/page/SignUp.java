@@ -19,6 +19,7 @@ import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 
+import com.example.finalproject.Common.Common;
 import com.example.finalproject.Model.Product;
 import com.example.finalproject.Model.User;
 import com.example.finalproject.R;
@@ -204,6 +205,7 @@ public class SignUp extends BaseActivity {
         radio= (RadioButton)findViewById(select);
         User user = new User(etName.getText().toString(), etPassword.getText().toString(), "Costumer",etPhone.getText().toString(),etAddress.getText().toString(), radio.getText().toString().equals("Perempuan")?"Female":"Male",
                 etDate.getText().toString()," "," ", image," ","unVerified");
+        user.setRole(Common.ROLE_USER);
         table_user.child(user.getPhone()).setValue(user);
         PreferenceUtil.setUser(user);
         Toast.makeText(SignUp.this, "Berhasil Membuat Akun", Toast.LENGTH_SHORT).show();

@@ -36,8 +36,8 @@ public class SignIn extends BaseActivity {
         setContentView(R.layout.activity_sign_in);
         toolbar = findViewById(R.id.toolbar);
 
-        etPhone = (MaterialEditText)findViewById(R.id.etPhone);
-        etPassword = (MaterialEditText)findViewById(R.id.etPassword);
+        etPhone = findViewById(R.id.etPhone);
+        etPassword = findViewById(R.id.etPassword);
         btnSignIn = (Button)findViewById(R.id.btnSignIn);
         PreferenceUtil.setContext(this);
         // Initialize firebase
@@ -70,7 +70,7 @@ public class SignIn extends BaseActivity {
                             if (user.getPassword().equals(etPassword.getText().toString())) {
                                 Common.currentUser = user;
                                 PreferenceUtil.setUser(user);
-                                if(user.getRole().equals(Common.ROLE_USER)){
+                                if(user.getRole().equalsIgnoreCase(Common.ROLE_USER)){
                                     Intent intent = new Intent(SignIn.this, MainMenuUser.class);
                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                                     intent.putExtra("phoneId",etPhone.getText().toString() );

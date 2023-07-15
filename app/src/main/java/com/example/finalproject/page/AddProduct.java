@@ -21,8 +21,10 @@ import androidx.cardview.widget.CardView;
 import com.example.finalproject.Model.Product;
 import com.example.finalproject.R;
 import com.example.finalproject.base.BaseActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -42,11 +44,11 @@ public class AddProduct extends BaseActivity {
     CardView imageHolder;
     RelativeLayout minusStock;
     RelativeLayout plusStock;
-    EditText stockEdt;
+    EditText poTime;
     Toolbar toolbar;
 
     private static final int PICK_IMAGE_REQUEST = 1;
-    MaterialEditText  Name, Price;
+    EditText  name, price, desc;
     private RelativeLayout mButtonChooseImage;
     Button btnSignUp;
     private Uri mImageUri;
@@ -60,31 +62,33 @@ public class AddProduct extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
         mButtonChooseImage = findViewById(R.id.button_choose_image);
-        Name = findViewById(R.id.nameProduct);
-        Price =  findViewById(R.id.Price);
+        name = findViewById(R.id.nameProduct);
+        price =  findViewById(R.id.Price);
         btnSignUp = findViewById(R.id.btnSignUp);
         mImageView =  findViewById(R.id.image_view);
-        stockEdt =  findViewById(R.id.product_stock_edt);
+        poTime =  findViewById(R.id.product_stock_edt);
         plusStock =  findViewById(R.id.plus_stock);
         minusStock =  findViewById(R.id.minus_stock);
         imageHolder =  findViewById(R.id.image_card);
+        desc =  findViewById(R.id.desc);
+
         toolbar =  findViewById(R.id.toolbar);
         setTitle(toolbar, "Tambah Produk");
 
         plusStock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int stockValue = Integer.parseInt(stockEdt.getText().toString())+1;
-                stockEdt.setText(String.valueOf(stockValue));
+                int stockValue = Integer.parseInt(poTime.getText().toString())+1;
+                poTime.setText(String.valueOf(stockValue));
             }
         });
 
         minusStock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(Integer.parseInt(stockEdt.getText().toString())>0){
-                    int stockValue = Integer.parseInt(stockEdt.getText().toString())-1;
-                    stockEdt.setText(String.valueOf(stockValue));
+                if(Integer.parseInt(poTime.getText().toString())>0){
+                    int stockValue = Integer.parseInt(poTime.getText().toString())-1;
+                    poTime.setText(String.valueOf(stockValue));
                 }
             }
         });
@@ -106,13 +110,19 @@ public class AddProduct extends BaseActivity {
                             .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                 @Override
                                 public void onSuccess(final UploadTask.TaskSnapshot taskSnapshot) {
-//
-                                    Product products = new Product( "PROD-"+String.valueOf(System.currentTimeMillis()), Name.getText().toString(), taskSnapshot.getMetadata().getReference().getDownloadUrl().toString(), Price.getText().toString(), stockEdt.getText().toString());
-                                    table_user.child(products.getProductId()).setValue(products);
-                                    disProgress();
-                                    Toast.makeText(AddProduct.this, "Berhasil Menambahkan Produk", Toast.LENGTH_SHORT).show();
+                                    taskSnapshot.getMetadata().getReference().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                                        @Override
+                                        public void onComplete( Task<Uri> task) {
+                                            String url = task.getResult().toString();
+                                            Product products = new Product( "PROD-"+ System.currentTimeMillis(), name.getText().toString(), url, price.getText().toString(), Integer.parseInt(poTime.getText().toString()), desc.getText().toString());
+                                            table_user.child(products.getProductId()).setValue(products);
+                                            disProgress();
+                                            Toast.makeText(AddProduct.this, "Berhasil Menambahkan Produk", Toast.LENGTH_SHORT).show();
 
-                                    AddProduct.this.finish();
+                                            AddProduct.this.finish();
+                                        }
+                                    });
+
 
                                 }
                             })

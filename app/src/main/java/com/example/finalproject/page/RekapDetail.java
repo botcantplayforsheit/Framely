@@ -107,6 +107,7 @@ public class RekapDetail extends BaseActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
+        loadOrder(requests.orderByChild("date").startAt(calendar.getTime().getTime()).endAt(endDate.getTime()));
 
 //        List<Entry> kasus = new  ArrayList<Entry>();
 //        kasus.add(new Entry(1, 149));
@@ -157,7 +158,6 @@ public class RekapDetail extends BaseActivity {
             chartList.add(new Entry(i, 0));
             prevChartList.add(new Entry(i, 0));
         }
-        loadOrder(requests.orderByChild("date").startAt(calendar.getTime().getTime()).endAt(endDate.getTime()));
     }
 
     private void loadOrder(Query query){

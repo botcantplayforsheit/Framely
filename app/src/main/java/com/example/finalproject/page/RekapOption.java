@@ -79,6 +79,7 @@ public class RekapOption extends BaseActivity {
         dateEndText = findViewById(R.id.date_end);
         dateStartText = findViewById(R.id.date_start);
         sellTypeOption = findViewById(R.id.sell_type_option);
+        setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         chooseProduct.setOnClickListener(new View.OnClickListener() {
