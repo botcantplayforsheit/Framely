@@ -115,7 +115,7 @@ public class ProductDetail extends BaseActivity {
                 }
             }
         });
-        if(product.getImage()!=null && !product.getImage().isEmpty()){
+        if(product.getImage()!=null && !product.getImage().isEmpty() && !product.getImage().equals(" ")){
             imageCard.setVisibility(View.VISIBLE);
             Picasso.with(getBaseContext()).load(product.getImage()).into(imageProduct);
         }

@@ -251,6 +251,9 @@ public class OrderDetail extends BaseActivity {
             TextView name = layout.findViewById(R.id.name);
             TextView qty = layout.findViewById(R.id.qty);
             ImageView image = layout.findViewById(R.id.image);
+            if(order.getProduct().getImage() != null &&
+                    !order.getProduct().getImage().equals(" ")&&
+                    !order.getProduct().getImage().isEmpty())
             Picasso.with(this).load(order.getProduct().getImage()).into(image);
 
             price.setText(order.getPrice());

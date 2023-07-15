@@ -66,7 +66,7 @@ public class AddProduct extends BaseActivity {
         price =  findViewById(R.id.Price);
         btnSignUp = findViewById(R.id.btnSignUp);
         mImageView =  findViewById(R.id.image_view);
-        poTime =  findViewById(R.id.product_stock_edt);
+        poTime =  findViewById(R.id.poTime);
         plusStock =  findViewById(R.id.plus_stock);
         minusStock =  findViewById(R.id.minus_stock);
         imageHolder =  findViewById(R.id.image_card);

@@ -98,7 +98,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderViewHolder>{
         holder.status.setText(Common.ORDER_TYPE_STRING.get(listData.get(position).getStatus()));
         holder.txt_name.setText(listData.get(position).getOrders().get(0).getProduct().getName());
         holder.txt_price.setText(StringUtil.formatToIDR(listData.get(position).getPrice()));
-        if(listData.get(position).getOrders().get(0).getProduct().getImage() != null){
+        if(listData.get(position).getOrders().get(0).getProduct().getImage() != null &&
+                !listData.get(position).getOrders().get(0).getProduct().getImage().isEmpty() &&
+                !listData.get(position).getOrders().get(0).getProduct().getImage().equals(" ")){
             Picasso.with(context).load(listData.get(position).getOrders().get(0).getProduct().getImage()).into(holder.image);
         }
         holder.parent.setOnClickListener(new View.OnClickListener() {
