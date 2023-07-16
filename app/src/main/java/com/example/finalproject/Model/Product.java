@@ -71,6 +71,9 @@ public class Product implements Parcelable {
     }
 
     public String getImage() {
+        if(image==null || image.isEmpty() || image.equals(" ")){
+            return "https://firebasestorage.googleapis.com/v0/b/onlincec.appspot.com/o/signUpData%2Fplaceholder.jpg?alt=media&token=8cbf2e87-7e82-4eb9-8c18-deb9e7af2673";
+        }
         return image;
     }
 
