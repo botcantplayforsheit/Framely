@@ -113,7 +113,7 @@ public class TransactionHistory extends BaseActivity {
                 showBottomSheetDialog();
             }
         });
-        final SwipeRefreshLayout pullToRefresh = findViewById(R.id.pullToRefresh);
+        pullToRefresh = findViewById(R.id.pullToRefresh);
         pullToRefresh.setOnRefreshListener(() -> {
             loadOrder(requests.orderByChild("date").startAt(startDate.getTime()).endAt(endDate.getTime()));// your code
         });
