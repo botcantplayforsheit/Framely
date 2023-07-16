@@ -26,6 +26,7 @@ import android.widget.TextView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.finalproject.Common.Common;
 import com.example.finalproject.Model.Invoice;
@@ -79,6 +80,7 @@ public class TransactionHistory extends BaseActivity {
     List<Invoice> prevOrderList = new ArrayList<>();
     Date startDate = new Date();
     Date endDate = new Date();
+    SwipeRefreshLayout pullToRefresh;
     SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,7 +113,11 @@ public class TransactionHistory extends BaseActivity {
                 showBottomSheetDialog();
             }
         });
-        loadOrder(requests.orderByChild("date").startAt(startDate.getTime()).endAt(endDate.getTime()));
+        final SwipeRefreshLayout pullToRefresh = findViewById(R.id.pullToRefresh);
+        pullToRefresh.setOnRefreshListener(() -> {
+            loadOrder(requests.orderByChild("date").startAt(startDate.getTime()).endAt(endDate.getTime()));// your code
+        });
+        loadOrder(requests.orderByChild("date").startAt(startDate.getTime()).endAt(endDate.getTime()));// your code
     }
     String status = "ALL";
     public void showBottomSheetDialog() {
@@ -293,6 +299,7 @@ public class TransactionHistory extends BaseActivity {
                 }
                 adapter = new OrderAdapter(orderList, TransactionHistory.this);
                 recyclerView.setAdapter(adapter);
+                pullToRefresh.setRefreshing(false);
                 query.removeEventListener(this);
             }
 

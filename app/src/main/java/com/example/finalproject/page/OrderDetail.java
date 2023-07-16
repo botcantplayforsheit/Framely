@@ -216,7 +216,6 @@ public class OrderDetail extends BaseActivity {
             submitBtn.setVisibility(View.GONE);
         }else if(invoice.getStatus().equals(Common.ORDER_SHIPPING)){
             submitBtn.setText("Selesaikan Pembelian");
-
             status.setText("Dalam Pengiriman");
         }else if(invoice.getStatus().equals(Common.ORDER_SUCCESS)){
             status.setText("Pembelian Sukses");
@@ -228,9 +227,8 @@ public class OrderDetail extends BaseActivity {
             cancelBtn.setVisibility(View.GONE);
             submitBtn.setVisibility(View.GONE);
         }else if(invoice.getStatus().equals(Common.ORDER_WAITING_PAYMENT)){
-            submitBtn.setText("Update Pembelian");
+            submitBtn.setText("Submit Bukti Transfer");
             status.setText("Menunggu Pembayaran");
-            submitBtn.setVisibility(View.GONE);
         }else if(invoice.getStatus().equals(Common.ORDER_IN_REVIEW)){
             submitBtn.setText("Terima Pembayaran");
             status.setText("Menunggu Review Penjual");
