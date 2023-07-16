@@ -142,6 +142,7 @@ public class Cart extends BaseActivity {
                                 Intent intent = new Intent(Cart.this, OrderDetail.class);
                                 intent.putExtra("invoice", invoice);
                                 startActivity(intent);
+                                finish();
                             }
                         });
 
