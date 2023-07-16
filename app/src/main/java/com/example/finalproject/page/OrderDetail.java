@@ -210,6 +210,7 @@ public class OrderDetail extends BaseActivity {
         if(invoice.getStatus().equals(Common.ORDER_PAYMENT_APPROVED) ){
             submitBtn.setText("Update Nomor Resi");
             status.setText("Pembayaran Disetujui");
+            cancelBtn.setVisibility(View.GONE);
         }else if(invoice.getStatus().equals(Common.ORDER_FAILED)){
             status.setText("Pembelian Gagal");
             cancelBtn.setVisibility(View.GONE);
@@ -217,6 +218,7 @@ public class OrderDetail extends BaseActivity {
         }else if(invoice.getStatus().equals(Common.ORDER_SHIPPING)){
             submitBtn.setText("Selesaikan Pembelian");
             status.setText("Dalam Pengiriman");
+            cancelBtn.setVisibility(View.GONE);
         }else if(invoice.getStatus().equals(Common.ORDER_SUCCESS)){
             status.setText("Pembelian Sukses");
             cancelBtn.setVisibility(View.GONE);
