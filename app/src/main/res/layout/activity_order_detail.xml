@@ -319,12 +319,16 @@
                             android:gravity="center"
                             android:textColor="@android:color/white"
                             />
-                        <TextView
-                            android:text="Harap melakukan "
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+
                     </androidx.cardview.widget.CardView>
+
                 </LinearLayout>
+                <TextView
+                    android:textColor="@color/black"
+                    android:text="Harap melakukan pembayaran sesuai nominal total belanja ke rekening: \nBank: BCA\nNomor Rekening: 777791293\nAtas Nama: Michael Ho Suyono"
+                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
             </LinearLayout>
 
             <LinearLayout
