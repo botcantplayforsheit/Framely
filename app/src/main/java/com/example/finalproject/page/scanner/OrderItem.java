@@ -257,6 +257,8 @@ public class OrderItem extends BaseActivity {
 
                             Intent intent = new Intent(OrderItem.this, OrderDetail.class);
                             intent.putExtra("invoice", invoice);
+                            intent.putExtra("type", 0);
+
                             finish();
                             startActivity(intent);
                         }

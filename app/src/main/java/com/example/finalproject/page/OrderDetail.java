@@ -67,7 +67,7 @@ public class OrderDetail extends BaseActivity {
     private static final int PICK_IMAGE_REQUEST = 1;
     Button submitBtn;
     Button cancelBtn;
-
+    int isOk = 0;
     private Uri mImageUri;
     TextView btnUpload;
 
@@ -101,7 +101,7 @@ public class OrderDetail extends BaseActivity {
 
         setTitle(toolbar, "Detail Pembelian");
 
-
+        isOk = getIntent().getIntExtra("type",0);
         submitBtn = findViewById(R.id.submit_btn);
         invoice = getIntent().getParcelableExtra("invoice");
         url = invoice.getImageTransaction();
@@ -140,6 +140,9 @@ public class OrderDetail extends BaseActivity {
                     }
                 }
                 table.child(invoice.getId()).setValue(invoice);
+                if(isOk == 1){
+                    setResult(RESULT_OK);
+                }
                 finish();
             }
         });

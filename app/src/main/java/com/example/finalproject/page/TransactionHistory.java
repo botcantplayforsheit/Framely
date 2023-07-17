@@ -3,6 +3,7 @@ package com.example.finalproject.page;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Insets;
 import android.os.Build;
@@ -23,6 +24,10 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -117,8 +122,18 @@ public class TransactionHistory extends BaseActivity {
         pullToRefresh.setOnRefreshListener(() -> {
             loadOrder(requests.orderByChild("date").startAt(startDate.getTime()).endAt(endDate.getTime()));// your code
         });
+
+        someActivityResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        loadOrder(requests.orderByChild("date").startAt(startDate.getTime()).endAt(endDate.getTime()));// your code
+                    }
+                });
+
         loadOrder(requests.orderByChild("date").startAt(startDate.getTime()).endAt(endDate.getTime()));// your code
     }
+    ActivityResultLauncher<Intent> someActivityResultLauncher;
     String status = "ALL";
     public void showBottomSheetDialog() {
         View view = getLayoutInflater().inflate(R.layout.filter_popup, null);
@@ -297,7 +312,7 @@ public class TransactionHistory extends BaseActivity {
                         if(sale.getStatus().equals(status));
                     }
                 }
-                adapter = new OrderAdapter(orderList, TransactionHistory.this);
+                adapter = new OrderAdapter(orderList, TransactionHistory.this, someActivityResultLauncher);
                 recyclerView.setAdapter(adapter);
                 pullToRefresh.setRefreshing(false);
                 query.removeEventListener(this);

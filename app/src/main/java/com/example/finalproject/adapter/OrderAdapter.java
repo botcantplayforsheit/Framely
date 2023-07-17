@@ -1,6 +1,7 @@
 package com.example.finalproject.adapter;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -10,6 +11,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -62,10 +67,11 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderViewHolder>{
 
     private List<Invoice> listData = new ArrayList<>();
     private Context context;
-
-    public OrderAdapter(List<Invoice> listData, Context context) {
+    private ActivityResultLauncher<Intent> someActivityResultLauncher;
+    public OrderAdapter(List<Invoice> listData, Context context, ActivityResultLauncher<Intent> someActivityResultLauncher) {
         this.listData = listData;
         this.context = context;
+        this.someActivityResultLauncher = someActivityResultLauncher;
     }
 
     @Override
@@ -103,14 +109,18 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderViewHolder>{
                 !listData.get(position).getOrders().get(0).getProduct().getImage().equals(" ")){
             Picasso.with(context).load(listData.get(position).getOrders().get(0).getProduct().getImage()).into(holder.image);
         }
+
+
         holder.parent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, OrderDetail.class);
                 intent.putExtra("invoice", listData.get(position));
-                context.startActivity(intent);
+                intent.putExtra("type", 1);
+                someActivityResultLauncher.launch(intent);
             }
         });
+
     }
 
     @Override

@@ -141,6 +141,7 @@ public class Cart extends BaseActivity {
                                 PreferenceUtil.clearOrder();
                                 Intent intent = new Intent(Cart.this, OrderDetail.class);
                                 intent.putExtra("invoice", invoice);
+                                intent.putExtra("type", 0);
                                 startActivity(intent);
                                 finish();
                             }
