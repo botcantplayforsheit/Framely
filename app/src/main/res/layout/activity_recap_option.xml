@@ -160,11 +160,13 @@
             </androidx.cardview.widget.CardView>
         </LinearLayout>
         <TextView
+            android:visibility="gone"
             android:textColor="@color/colorBlack"
             android:text="Rekap Individual / Keseluruhan:"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <LinearLayout
+            android:visibility="gone"
             android:layout_marginBottom="20dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/border_black"
@@ -179,11 +181,13 @@
 
 
         <TextView
+            android:visibility="gone"
             android:textColor="@color/colorBlack"
             android:text="Tipe Penjualan:"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <LinearLayout
+            android:visibility="gone"
             android:layout_marginTop="10dp"
             android:background="@drawable/border_black"
             android:layout_width="match_parent"

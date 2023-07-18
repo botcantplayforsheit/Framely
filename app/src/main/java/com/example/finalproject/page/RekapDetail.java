@@ -107,7 +107,7 @@ public class RekapDetail extends BaseActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        loadOrder(requests.orderByChild("date").startAt(calendar.getTime().getTime()).endAt(endDate.getTime()));
+        loadOrder(requests.orderByChild("date").startAt(startDate.getTime()).endAt(endDate.getTime()));
 
 //        List<Entry> kasus = new  ArrayList<Entry>();
 //        kasus.add(new Entry(1, 149));
@@ -140,7 +140,7 @@ public class RekapDetail extends BaseActivity {
 
         typeRecap = getIntent().getStringExtra("type");
         database = FirebaseDatabase.getInstance();
-        requests = database.getReference("Order");
+        requests = database.getReference("Invoice");
         productId = getIntent().getStringExtra("productId");
         try {
             startDate = dateFormatter.parse(getIntent().getStringExtra("startDate"));
@@ -195,11 +195,11 @@ public class RekapDetail extends BaseActivity {
                 kasusLineDataSet.setCircleRadius(5f);
                 kasusLineDataSet.setCircleColor(Color.BLUE);
 
-                LineDataSet sembuhLineDataSet = new LineDataSet(prevChartList, dateFormatter.format(calendar.getTime())+" - "+dateFormatter.format(endPrevDate.getTime()));
-                sembuhLineDataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
-                sembuhLineDataSet.setColor(Color.GREEN);
-                sembuhLineDataSet.setCircleRadius(5f);
-                sembuhLineDataSet.setCircleColor(Color.GREEN);
+//                LineDataSet sembuhLineDataSet = new LineDataSet(prevChartList, dateFormatter.format(calendar.getTime())+" - "+dateFormatter.format(endPrevDate.getTime()));
+//                sembuhLineDataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+//                sembuhLineDataSet.setColor(Color.GREEN);
+//                sembuhLineDataSet.setCircleRadius(5f);
+//                sembuhLineDataSet.setCircleColor(Color.GREEN);
 
 
                 Legend legend = lineChart.getLegend();
@@ -211,7 +211,7 @@ public class RekapDetail extends BaseActivity {
 
                 YAxis leftAxis = lineChart.getAxisLeft();
                 leftAxis.removeAllLimitLines();
-                leftAxis.setAxisMaximum(max);
+//                leftAxis.setAxisMaximum(max);
                 leftAxis.setAxisMinimum(0f);
                 leftAxis.enableGridDashedLine(10f, 10f, 0f);
                 leftAxis.setDrawZeroLine(false);
@@ -220,7 +220,7 @@ public class RekapDetail extends BaseActivity {
 
                 lineChart.getDescription().setEnabled(false);
                 lineChart.getXAxis().setPosition( XAxis.XAxisPosition.BOTTOM);
-                lineChart.setData(new LineData(kasusLineDataSet, sembuhLineDataSet));
+                lineChart.setData(new LineData(kasusLineDataSet));
                 lineChart.animateXY(100, 500);
                 adapter = new OrderAdapter(orderList, RekapDetail.this);
                 recyclerView.setAdapter(adapter);

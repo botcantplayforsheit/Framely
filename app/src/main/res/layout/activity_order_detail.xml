@@ -324,6 +324,7 @@
 
                 </LinearLayout>
                 <TextView
+                    android:layout_marginBottom="20dp"
                     android:textColor="@color/black"
                     android:text="Harap melakukan pembayaran sesuai nominal total belanja ke rekening: \nBank: BCA\nNomor Rekening: 777791293\nAtas Nama: Michael Ho Suyono"
                     android:textStyle="bold"
