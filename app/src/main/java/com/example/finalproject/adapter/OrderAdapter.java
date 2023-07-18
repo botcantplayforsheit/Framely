@@ -74,6 +74,12 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderViewHolder>{
         this.someActivityResultLauncher = someActivityResultLauncher;
     }
 
+    public OrderAdapter(List<Invoice> listData, Context context) {
+        this.listData = listData;
+        this.context = context;
+        this.someActivityResultLauncher = someActivityResultLauncher;
+    }
+
     @Override
     public OrderViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
